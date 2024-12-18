@@ -1,12 +1,8 @@
-import { useState } from 'react';
-import HeaderButton from './HeaderButton';
+import HeaderButton from './HeaderButton.jsx';
 
-export default function Header() {
-  const [active, setActive] = useState('Home');
-
-  const handleActive = (text) => {
-    setActive(text);
-  };
+const Header = ({ active }) => {
+  console.log('Header rendered');
+  // console.log('active', active);
   return (
     <header id="header" className="header dark-background d-flex flex-column">
       <i className="header-toggle d-xl-none bi bi-list"></i>
@@ -20,7 +16,7 @@ export default function Header() {
       </div>
 
       <a
-        href="index.html"
+        href="/"
         className="logo d-flex align-items-center justify-content-center"
       >
         <img src="" alt="" />
@@ -48,49 +44,51 @@ export default function Header() {
       <nav id="navmenu" className="navmenu">
         <ul>
           <HeaderButton
-            section="#hero"
+            section="/"
             icon="bi bi-house navicon"
             text="Home"
             active={active}
-            onHandleActive={handleActive}
+            // onHandleActive={handleActive}
           />
           <HeaderButton
-            section="#about"
+            section="about"
             icon="bi bi-person navicon"
             text="About"
             active={active}
-            onHandleActive={handleActive}
+            // onHandleActive={handleActive}
           />
           <HeaderButton
-            section="#resume"
+            section="resume"
             icon="bi bi-file-earmark-text navicon"
             text="Resume"
             active={active}
-            onHandleActive={handleActive}
+            // onHandleActive={handleActive}
           />
           <HeaderButton
-            section="#portfolio"
+            section="portfolio"
             icon="bi bi-images navicon"
             text="Portfolio"
             active={active}
-            onHandleActive={handleActive}
+            // onHandleActive={handleActive}
           />
           <HeaderButton
-            section="#services"
+            section="services"
             icon="bi bi-hdd-stack navicon"
             text="Services"
             active={active}
-            onHandleActive={handleActive}
+            // onHandleActive={handleActive}
           />
           <HeaderButton
-            section="#contact"
+            section="contact"
             icon="bi bi-envelope navicon"
             text="Contact"
             active={active}
-            onHandleActive={handleActive}
+            // onHandleActive={handleActive}
           />
         </ul>
       </nav>
     </header>
   );
-}
+};
+
+export default Header;

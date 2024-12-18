@@ -1,11 +1,9 @@
-const HeaderButton = ({ section, icon, text, active, onHandleActive }) => {
+import { useState } from 'react';
+
+const HeaderButton = ({ section, icon, text, active }) => {
   return (
     <li>
-      <a
-        href={section}
-        className={active === text ? 'active' : ''}
-        onClick={() => onHandleActive(text)}
-      >
+      <a href={section} className={active === text ? 'active' : ''}>
         <i className={icon}></i>
         {text}
       </a>
