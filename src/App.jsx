@@ -11,6 +11,7 @@ import Resume from './components/Resume';
 import Portfolio from './components/Portfolio';
 import Services from './components/Services';
 import Contact from './components/Contact';
+import EmbedInstagram from './components/EmbedInstagram';
 
 function App() {
   const [active, setActive] = useState('Home');
@@ -57,7 +58,7 @@ function App() {
           <Route path="portfolio" element={<Portfolio />} />
           <Route path="services" element={<Services />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<EmbedInstagram />} />
         </Routes>
       </main>
     </>

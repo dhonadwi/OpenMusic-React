@@ -1,4 +1,5 @@
 import HeaderButton from './HeaderButton.jsx';
+import HeaderIcon from './HeaderIcon.jsx';
 
 const Header = ({ active }) => {
   console.log('Header rendered');
@@ -24,9 +25,14 @@ const Header = ({ active }) => {
       </a>
 
       <div className="social-links text-center">
-        <a href="#" className="twitter">
+        <HeaderIcon
+          link={'/twitter'}
+          iconClass={'twitter'}
+          icon={'bi bi-twitter'}
+        />
+        {/* <a href="#" className="twitter">
           <i className="bi bi-twitter"></i>
-        </a>
+        </a> */}
         <a href="#" className="facebook">
           <i className="bi bi-facebook"></i>
         </a>
