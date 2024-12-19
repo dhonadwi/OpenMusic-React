@@ -2,9 +2,9 @@ import { useAuth } from '../contexts/AuthContext.jsx';
 import HeaderButton from './HeaderButton.jsx';
 import HeaderIcon from './HeaderIcon.jsx';
 
-const Header = ({ active }) => {
+const Header = ({ active, currentPath }) => {
   const { logout } = useAuth();
-  console.log('Header rendered');
+  console.log('Header rendered', currentPath.substring(1));
   // console.log('active', active);
   function handleLogout() {
     alert('logout');
@@ -59,6 +59,7 @@ const Header = ({ active }) => {
             icon="bi bi-house navicon"
             text="Home"
             active={active}
+            currentPath={currentPath}
             // onHandleActive={handleActive}
           />
           <HeaderButton
@@ -66,6 +67,7 @@ const Header = ({ active }) => {
             icon="bi bi-person navicon"
             text="About"
             active={active}
+            currentPath={currentPath}
             // onHandleActive={handleActive}
           />
           <HeaderButton
@@ -73,6 +75,7 @@ const Header = ({ active }) => {
             icon="bi bi-file-earmark-text navicon"
             text="Resume"
             active={active}
+            currentPath={currentPath}
             // onHandleActive={handleActive}
           />
           <HeaderButton
@@ -80,6 +83,7 @@ const Header = ({ active }) => {
             icon="bi bi-images navicon"
             text="Portfolio"
             active={active}
+            currentPath={currentPath}
             // onHandleActive={handleActive}
           />
           <HeaderButton
@@ -87,6 +91,7 @@ const Header = ({ active }) => {
             icon="bi bi-hdd-stack navicon"
             text="Services"
             active={active}
+            currentPath={currentPath}
             // onHandleActive={handleActive}
           />
           <HeaderButton
@@ -94,6 +99,7 @@ const Header = ({ active }) => {
             icon="bi bi-envelope navicon"
             text="Contact"
             active={active}
+            currentPath={currentPath}
             // onHandleActive={handleActive}
           />
           <li>

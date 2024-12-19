@@ -1,8 +1,9 @@
 import Skill from './Skill';
 
-export default function About() {
+export default function About({ currentPath }) {
+  // console.log(currentPath);
   return (
-    <>
+    <main className="main">
       <section id="about" className="about section">
         <div className="container section-title" data-aos="fade-up">
           <h2>About</h2>
@@ -83,6 +84,6 @@ export default function About() {
         </div>
       </section>
       <Skill />
-    </>
+    </main>
   );
 }

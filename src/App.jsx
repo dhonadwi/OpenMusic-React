@@ -72,72 +72,72 @@ function App() {
   return (
     <AuthProvider>
       {/* {login ? <Header active={active} /> : ''} */}
-      <PrivateHeader>
+      {/* <PrivateHeader>
         <Header active={active} />
-      </PrivateHeader>
-      <main className="main">
-        <Router>
-          <Routes>
-            <Route
-              path="/login"
-              element={
-                <RedirectIfAuthenticated>
-                  <Login />
-                </RedirectIfAuthenticated>
-              }
-            />
-            <Route
-              path="/"
-              element={
-                <PrivateRoute>
-                  <Hero />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="about"
-              element={
-                <PrivateRoute>
-                  <About />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="resume"
-              element={
-                <PrivateRoute>
-                  <Resume />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="portfolio"
-              element={
-                <PrivateRoute>
-                  <Portfolio />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="services"
-              element={
-                <PrivateRoute>
-                  <Services />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path="contact"
-              element={
-                <PrivateRoute>
-                  <Contact />
-                </PrivateRoute>
-              }
-            />
-            <Route path="*" element={<EmbedInstagram />} />
-          </Routes>
-        </Router>
-      </main>
+      </PrivateHeader> */}
+      <Router>
+        {/* <main className="main"> */}
+        <Routes>
+          <Route
+            path="/login"
+            element={
+              <RedirectIfAuthenticated>
+                <Login />
+              </RedirectIfAuthenticated>
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Hero />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="about"
+            element={
+              <PrivateRoute>
+                <About />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="resume"
+            element={
+              <PrivateRoute>
+                <Resume />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="portfolio"
+            element={
+              <PrivateRoute>
+                <Portfolio />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="services"
+            element={
+              <PrivateRoute>
+                <Services />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="contact"
+            element={
+              <PrivateRoute>
+                <Contact />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<EmbedInstagram />} />
+        </Routes>
+        {/* </main> */}
+      </Router>
     </AuthProvider>
   );
 }
