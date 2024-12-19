@@ -1,9 +1,14 @@
+import { useAuth } from '../contexts/AuthContext.jsx';
 import HeaderButton from './HeaderButton.jsx';
 import HeaderIcon from './HeaderIcon.jsx';
 
 const Header = ({ active }) => {
+  const { logout } = useAuth();
   console.log('Header rendered');
   // console.log('active', active);
+  function handleLogout() {
+    alert('logout');
+  }
   return (
     <header id="header" className="header dark-background d-flex flex-column">
       <i className="header-toggle d-xl-none bi bi-list"></i>
@@ -91,6 +96,12 @@ const Header = ({ active }) => {
             active={active}
             // onHandleActive={handleActive}
           />
+          <li>
+            <a href="#" onClick={logout}>
+              <i className="bi bi-envelope navicon"></i>
+              Logout
+            </a>
+          </li>
         </ul>
       </nav>
     </header>

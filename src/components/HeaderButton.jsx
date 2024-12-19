@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 const HeaderButton = ({ section, icon, text, active }) => {
   return (
     <li>
