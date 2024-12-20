@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 const HeaderButton = ({
   section,
   icon,
@@ -5,14 +7,10 @@ const HeaderButton = ({
   active,
   currentPath = { currentPath },
 }) => {
-  console.log(
-    `text: ${text.toLowerCase()}, currentPath: ${currentPath.toLowerCase()}`
-  );
-  console.log('button', currentPath.toLowerCase() === text.toLowerCase());
   return (
     <li>
-      <a
-        href={section}
+      <Link
+        to={section}
         className={
           currentPath.toLowerCase().substring(1) === text.toLowerCase() ||
           (text.toLowerCase() === 'home' && currentPath.toLowerCase() === '/')
@@ -22,7 +20,7 @@ const HeaderButton = ({
       >
         <i className={icon}></i>
         {text}
-      </a>
+      </Link>
     </li>
   );
 };

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export default function Login() {
   const { login, tokens } = useAuth();
@@ -23,7 +24,13 @@ export default function Login() {
       } else {
         console.log(success);
         // setIsLoading(false);
-        alert('gagal login');
+        Swal.fire({
+          title: 'Error!',
+          text: 'Username / password salah',
+          icon: 'error',
+          confirmButtonText: 'Ok',
+        });
+
         // setError('Login gagal. Periksa kembali kredensial Anda.');
       }
     } catch (err) {

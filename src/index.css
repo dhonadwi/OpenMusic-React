@@ -29,6 +29,12 @@
   border-color: #0056b3;
 } */
 
+.capital {
+  text-transform: capitalize;
+}
+.card {
+  width: 18rem;
+}
 .instagram-container {
   display: flex;
   justify-content: center;

@@ -4,7 +4,6 @@ import HeaderIcon from './HeaderIcon.jsx';
 
 const Header = ({ active, currentPath }) => {
   const { logout } = useAuth();
-  console.log('Header rendered', currentPath.substring(1));
   // console.log('active', active);
   function handleLogout() {
     alert('logout');
@@ -63,7 +62,7 @@ const Header = ({ active, currentPath }) => {
             // onHandleActive={handleActive}
           />
           <HeaderButton
-            section="about"
+            section="/about"
             icon="bi bi-person navicon"
             text="About"
             active={active}
@@ -71,7 +70,7 @@ const Header = ({ active, currentPath }) => {
             // onHandleActive={handleActive}
           />
           <HeaderButton
-            section="resume"
+            section="/resume"
             icon="bi bi-file-earmark-text navicon"
             text="Resume"
             active={active}
@@ -79,7 +78,7 @@ const Header = ({ active, currentPath }) => {
             // onHandleActive={handleActive}
           />
           <HeaderButton
-            section="portfolio"
+            section="/portfolio"
             icon="bi bi-images navicon"
             text="Portfolio"
             active={active}
@@ -87,7 +86,7 @@ const Header = ({ active, currentPath }) => {
             // onHandleActive={handleActive}
           />
           <HeaderButton
-            section="services"
+            section="/services"
             icon="bi bi-hdd-stack navicon"
             text="Services"
             active={active}
@@ -95,7 +94,7 @@ const Header = ({ active, currentPath }) => {
             // onHandleActive={handleActive}
           />
           <HeaderButton
-            section="contact"
+            section="/contact"
             icon="bi bi-envelope navicon"
             text="Contact"
             active={active}
@@ -104,8 +103,7 @@ const Header = ({ active, currentPath }) => {
           />
           <li>
             <a href="#" onClick={logout}>
-              <i className="bi bi-envelope navicon"></i>
-              Logout
+              <i className="fa fa-sign-out"> </i> Logout
             </a>
           </li>
         </ul>

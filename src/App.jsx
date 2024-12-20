@@ -21,8 +21,8 @@ import EmbedInstagram from './components/EmbedInstagram';
 import Login from './components/Login';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import PrivateRoute from './components/Auth/PrivateRoute';
-import { useRef } from 'react';
-import PrivateHeader from './components/Auth/privateHeader';
+import ListSongs from './components/Songs/ListSongs';
+import DetailSong from './components/Songs/DetailSong';
 
 // Wrapper komponen untuk mengecek autentikasi
 const RedirectIfAuthenticated = ({ children }) => {
@@ -90,7 +90,8 @@ function App() {
             path="/"
             element={
               <PrivateRoute>
-                <Hero />
+                {/* <Hero /> */}
+                <ListSongs />
               </PrivateRoute>
             }
           />
@@ -131,6 +132,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Contact />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="song/:id"
+            element={
+              <PrivateRoute>
+                <DetailSong />
               </PrivateRoute>
             }
           />
