@@ -1,7 +1,41 @@
 import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const ItemSong = ({ song }) => {
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleFavoriteSong = (song) => {
+    const favoriteSongs = JSON.parse(
+      localStorage.getItem('favoriteSongs') || '[]'
+    );
+
+    // Cek apakah lagu sudah ada di favorites
+    const isExist = favoriteSongs.find((favorite) => favorite.id === song.id);
+
+    if (isExist) {
+      // Jika lagu sudah ada, hapus dari favorites
+      const updatedFavorites = favoriteSongs.filter(
+        (favorite) => favorite.id !== song.id
+      );
+      localStorage.setItem('favoriteSongs', JSON.stringify(updatedFavorites));
+      setIsLiked(false); // Update state like button
+    } else {
+      // Jika lagu belum ada, tambahkan ke favorites
+      favoriteSongs.push(song);
+      localStorage.setItem('favoriteSongs', JSON.stringify(favoriteSongs));
+      setIsLiked(true); // Update state like button
+    }
+  };
+
+  // Cek apakah lagu sudah ada di favorites
+
+  useEffect(() => {
+    handleFavoriteSong(song);
+    console.log('isLiked');
+  }, []);
+
   return (
     // <div className="col m-2 p-2">
     //   <div className="card ">
@@ -37,8 +71,13 @@ const ItemSong = ({ song }) => {
               Detail
             </Link>
             <div>
-              <button className="btn btn-sm btn-light">
-                <i className="far fa-heart"></i>
+              <button
+                className="btn btn-sm btn-light"
+                onClick={() => handleFavoriteSong(song)}
+              >
+                <i
+                  className={`${isLiked ? 'fas text-danger' : 'far'} fa-heart`}
+                ></i>
               </button>
             </div>
           </div>
