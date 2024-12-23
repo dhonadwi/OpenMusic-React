@@ -2,12 +2,16 @@ import { useAuth } from '../contexts/AuthContext';
 import { useState } from 'react';
 import Loading from './Loading';
 import Swal from 'sweetalert2';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import ForgotPassword from './Users/ForgotPassword';
 
 const LoginOpenMusic = () => {
   const { login, tokens } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -108,10 +112,15 @@ const LoginOpenMusic = () => {
                 <label className="form-check-label" htmlFor="remember">
                   Remember me
                 </label>
-              </div>
-              <a href="#" className="text-decoration-none">
+              </div> */}
+              <a
+                href="#"
+                // type="button"
+                onClick={() => setModalShow(true)}
+                className=" text-decoration-none"
+              >
                 Forgot password?
-              </a> */}
+              </a>
             </div>
 
             <button
@@ -128,6 +137,11 @@ const LoginOpenMusic = () => {
               </a>
             </div>
           </form>
+          {/* <Button variant="primary" onClick={() => setModalShow(true)}>
+            Launch vertically centered modal
+          </Button> */}
+
+          <ForgotPassword show={modalShow} onHide={() => setModalShow(false)} />
         </div>
       </div>
     </div>
