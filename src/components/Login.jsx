@@ -2,18 +2,20 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Navigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import Loading from './Loading';
 
 export default function Login() {
   const { login, tokens } = useAuth();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   // const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     // alert(`username: ${username}, password: ${password}`);
     // setError('');
-    // setIsLoading(true);
+    setIsLoading(true);
 
     try {
       const success = await login(username, password);
@@ -23,7 +25,7 @@ export default function Login() {
         Navigate('/');
       } else {
         console.log(success);
-        // setIsLoading(false);
+        setIsLoading(false);
         Swal.fire({
           title: 'Error!',
           text: 'Username / password salah',
@@ -37,6 +39,7 @@ export default function Login() {
       console.log('Terjadi kesalahan saat login', err);
     }
   };
+  if (isLoading) return <Loading />;
   return (
     <div className="container">
       <div className="login-container">

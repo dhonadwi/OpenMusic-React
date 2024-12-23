@@ -1,49 +1,56 @@
+import Loading from '../Loading';
 import ItemSong from './ItemSong';
-import { useState, useEffect } from 'react';
 
-const ListSongs = () => {
-  const [songs, setSongs] = useState([]);
-  const [filterSongs, setFilterSongs] = useState([]);
-  const [genres, setGenres] = useState([]);
-  const [activeGenre, setActiveGenre] = useState('all');
-  const [loading, setLoading] = useState(true);
+const ListSongs = ({
+  filterSongs,
+  genres,
+  activeGenre,
+  loading,
+  onHandleGenres,
+}) => {
+  // const [songs, setSongs] = useState([]);
+  // const [filterSongs, setFilterSongs] = useState([]);
+  // const [genres, setGenres] = useState([]);
+  // const [activeGenre, setActiveGenre] = useState('all');
+  // const [loading, setLoading] = useState(true);
 
-  const handleSongs = async () => {
-    const data = await fetch(`${import.meta.env.VITE_BASEURL}/songs`);
-    const dataJson = await data.json();
-    const songsData = dataJson.data.songs;
-    setSongs(songsData);
-    const uniqueGenres = [
-      ...new Set(dataJson.data.songs.map((song) => song.genre)),
-    ];
-    setGenres(uniqueGenres);
-    setFilterSongs(songsData);
-    setLoading(false);
-  };
+  // const handleSongs = async () => {
+  //   const data = await fetch(`${import.meta.env.VITE_BASEURL}/songs`);
+  //   const dataJson = await data.json();
+  //   const songsData = dataJson.data.songs;
+  //   setSongs(songsData);
+  //   const uniqueGenres = [
+  //     ...new Set(dataJson.data.songs.map((song) => song.genre)),
+  //   ];
+  //   setGenres(uniqueGenres);
+  //   setFilterSongs(songsData);
+  //   setLoading(false);
+  // };
 
-  const handleGenres = (genre) => {
-    setActiveGenre(genre);
-    if (genre === 'all') {
-      setFilterSongs(songs);
-    } else {
-      const filtered = songs.filter((song) => song.genre === genre);
-      setFilterSongs(filtered);
-    }
-  };
+  // const handleGenres = (genre) => {
+  //   setActiveGenre(genre);
+  //   if (genre === 'all') {
+  //     setFilterSongs(songs);
+  //   } else {
+  //     const filtered = songs.filter((song) => song.genre === genre);
+  //     setFilterSongs(filtered);
+  //   }
+  // };
 
-  useEffect(() => {
-    handleSongs();
-  }, []);
+  // useEffect(() => {
+  //   handleSongs();
+  // }, []);
 
   if (loading)
     return (
-      <main className="main">
-        <div className="d-flex justify-content-center align-items-center min-vh-100">
-          <div className="spinner-border" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        </div>
-      </main>
+      // <main className="main">
+      //   <div className="d-flex justify-content-center align-items-center min-vh-100">
+      //     <div className="spinner-border" role="status">
+      //       <span className="visually-hidden">Loading...</span>
+      //     </div>
+      //   </div>
+      // </main>
+      <Loading />
     );
 
   return (
@@ -81,13 +88,13 @@ const ListSongs = () => {
                         ? 'btn-primary'
                         : 'btn-outline-primary'
                     }`}
-                    onClick={() => handleGenres('all')}
+                    onClick={() => onHandleGenres('all')}
                   >
                     All
                   </button>
                   {genres.map((genre, i) => (
                     <button
-                      onClick={() => handleGenres(genre)}
+                      onClick={() => onHandleGenres(genre)}
                       key={i}
                       className={`btn btn-sm ${
                         activeGenre === genre

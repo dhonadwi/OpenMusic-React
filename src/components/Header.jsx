@@ -62,6 +62,14 @@ const Header = ({ active, currentPath }) => {
             // onHandleActive={handleActive}
           />
           <HeaderButton
+            section="/favorite"
+            icon="bi bi-heart navicon"
+            text="Favorite"
+            active={active}
+            currentPath={currentPath}
+            // onHandleActive={handleActive}
+          />
+          <HeaderButton
             section="/about"
             icon="bi bi-person navicon"
             text="About"
@@ -103,7 +111,7 @@ const Header = ({ active, currentPath }) => {
           />
           <li>
             <a href="#" onClick={logout}>
-              <i className="fa fa-sign-out"> </i> Logout
+              <i className="fa fa-sign-out navicon"> </i> Logout
             </a>
           </li>
         </ul>

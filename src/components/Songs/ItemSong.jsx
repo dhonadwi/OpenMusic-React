@@ -33,7 +33,6 @@ const ItemSong = ({ song }) => {
 
   useEffect(() => {
     handleFavoriteSong(song);
-    console.log('isLiked');
   }, []);
 
   return (

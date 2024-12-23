@@ -23,6 +23,8 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import PrivateRoute from './components/Auth/PrivateRoute';
 import ListSongs from './components/Songs/ListSongs';
 import DetailSong from './components/Songs/DetailSong';
+import LikedSongs from './components/Songs/LikedSongs';
+import LoginOpenMusic from './components/LoginOpenMusic';
 
 // Wrapper komponen untuk mengecek autentikasi
 const RedirectIfAuthenticated = ({ children }) => {
@@ -36,37 +38,38 @@ const RedirectIfAuthenticated = ({ children }) => {
   return children;
 };
 function App() {
-  const [active, setActive] = useState('Home');
-  // const location = useLocation(); // Hook untuk mendapatkan lokasi saat ini
+  const [songs, setSongs] = useState([]);
+  const [filterSongs, setFilterSongs] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const [activeGenre, setActiveGenre] = useState('all');
+  const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   // Perbarui state active berdasarkan path
-  //   switch (location.pathname) {
-  //     case '/':
-  //       setActive('Home');
-  //       break;
-  //     case '/about':
-  //       setActive('About');
-  //       break;
-  //     case '/resume':
-  //       setActive('Resume');
-  //       break;
-  //     case '/portfolio':
-  //       setActive('Portfolio');
-  //       break;
-  //     case '/services':
-  //       setActive('Services');
-  //       break;
-  //     case '/contact':
-  //       setActive('Contact');
-  //       break;
-  //     default:
-  //       setActive('');
-  //   }
-  // }, [location.pathname]);
+  const handleSongs = async () => {
+    const data = await fetch(`${import.meta.env.VITE_BASEURL}/songs`);
+    const dataJson = await data.json();
+    const songsData = dataJson.data.songs;
+    setSongs(songsData);
+    const uniqueGenres = [
+      ...new Set(dataJson.data.songs.map((song) => song.genre)),
+    ];
+    setGenres(uniqueGenres);
+    setFilterSongs(songsData);
+    setLoading(false);
+  };
+
+  const handleGenres = (genre) => {
+    setActiveGenre(genre);
+    if (genre === 'all') {
+      setFilterSongs(songs);
+    } else {
+      const filtered = songs.filter((song) => song.genre === genre);
+      setFilterSongs(filtered);
+    }
+  };
 
   useEffect(() => {
     AOS.init();
+    handleSongs();
   }, []);
 
   return (
@@ -82,7 +85,7 @@ function App() {
             path="/login"
             element={
               <RedirectIfAuthenticated>
-                <Login />
+                <LoginOpenMusic />
               </RedirectIfAuthenticated>
             }
           />
@@ -91,7 +94,26 @@ function App() {
             element={
               <PrivateRoute>
                 {/* <Hero /> */}
-                <ListSongs />
+                <ListSongs
+                  filterSongs={filterSongs}
+                  genres={genres}
+                  activeGenre={activeGenre}
+                  loading={loading}
+                  onHandleGenres={handleGenres}
+                />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="favorite"
+            element={
+              <PrivateRoute>
+                <LikedSongs
+                  genres={genres}
+                  activeGenre={activeGenre}
+                  loading={loading}
+                  onHandleGenres={handleGenres}
+                />
               </PrivateRoute>
             }
           />
