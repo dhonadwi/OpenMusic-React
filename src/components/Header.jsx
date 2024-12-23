@@ -70,6 +70,14 @@ const Header = ({ active, currentPath }) => {
             // onHandleActive={handleActive}
           />
           <HeaderButton
+            section="/playlist"
+            icon="bi bi-file-earmark-music navicon"
+            text="Playlists"
+            active={active}
+            currentPath={currentPath}
+            // onHandleActive={handleActive}
+          />
+          <HeaderButton
             section="/about"
             icon="bi bi-person navicon"
             text="About"

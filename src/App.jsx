@@ -25,6 +25,8 @@ import ListSongs from './components/Songs/ListSongs';
 import DetailSong from './components/Songs/DetailSong';
 import LikedSongs from './components/Songs/LikedSongs';
 import LoginOpenMusic from './components/LoginOpenMusic';
+import ListPlaylists from './components/Playlists/ListPlaylists';
+import DetailPlaylist from './components/Playlists/DetailPlaylist';
 
 // Wrapper komponen untuk mengecek autentikasi
 const RedirectIfAuthenticated = ({ children }) => {
@@ -118,6 +120,14 @@ function App() {
             }
           />
           <Route
+            path="playlist"
+            element={
+              <PrivateRoute>
+                <ListPlaylists />
+              </PrivateRoute>
+            }
+          />
+          <Route
             path="about"
             element={
               <PrivateRoute>
@@ -162,6 +172,14 @@ function App() {
             element={
               <PrivateRoute>
                 <DetailSong />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="playlist/:id"
+            element={
+              <PrivateRoute>
+                <DetailPlaylist />
               </PrivateRoute>
             }
           />
