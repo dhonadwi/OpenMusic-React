@@ -3,10 +3,23 @@ import { useAuth } from '../../contexts/AuthContext';
 import Header from '../Header';
 import React, { useEffect, useState } from 'react';
 
-const Layout = ({ children, currentPath, user }) => {
+const Layout = ({
+  children,
+  currentPath,
+  user,
+  playlists,
+  isLoading,
+  onHandlePlaylists,
+}) => {
   return (
     <div>
-      <Header currentPath={currentPath} user={user} />
+      <Header
+        currentPath={currentPath}
+        user={user}
+        playlists={playlists}
+        isLoading={isLoading}
+        onHandlePlaylists={onHandlePlaylists}
+      />
       {children}
     </div>
   );
@@ -17,6 +30,25 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
   const { authenticatedFetch } = useAuth();
   const [user, setUser] = useState([]);
+  const [playlists, setPlaylists] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handlePlaylists = async () => {
+    try {
+      const response = await authenticatedFetch(
+        `${import.meta.env.VITE_BASEURL}/playlists`,
+        {
+          method: 'GET',
+        }
+      );
+      const data = await response.json();
+      const getPlaylists = data.data.playlists;
+      setPlaylists(getPlaylists);
+      setIsLoading(false);
+    } catch (error) {
+      console.log('Terjadi kesalahan pada playlists', error);
+    }
+  };
 
   const getUser = async () => {
     try {
@@ -34,7 +66,8 @@ const PrivateRoute = ({ children }) => {
 
   useEffect(() => {
     getUser();
-    console.log('getUser');
+    handlePlaylists();
+    console.log('getUser n playlists');
   }, []);
 
   // Cek apakah memiliki access token
@@ -51,6 +84,9 @@ const PrivateRoute = ({ children }) => {
       return React.cloneElement(child, {
         currentPath: location.pathname,
         user: user,
+        playlists: playlists,
+        isLoading: isLoading,
+        onHandlePlaylists: handlePlaylists,
       });
     }
     return child;
@@ -58,7 +94,13 @@ const PrivateRoute = ({ children }) => {
 
   // Wrap children dengan Layout
   return (
-    <Layout currentPath={location.pathname} user={user}>
+    <Layout
+      currentPath={location.pathname}
+      user={user}
+      playlists={playlists}
+      isLoading={isLoading}
+      onHandlePlaylists={handlePlaylists}
+    >
       {childrenWithProps}
     </Layout>
   );

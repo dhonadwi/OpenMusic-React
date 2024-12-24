@@ -11,6 +11,7 @@ const Profile = ({ user }) => {
   const changePassword = async () => {
     const dataBody = {
       password,
+      email
     };
     try {
       const response = await authenticatedFetch(

@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import ItemPlaylist from './ItemPlaylist';
+import Loading from '../Loading.jsx';
 
-const ListPlaylists = () => {
-  const [playlists, setPlaylists] = useState([]);
+const ListPlaylists = ({ playlists, isLoading, onHandlePlaylists }) => {
+  // const [playlists, setPlaylists] = useState([]);
   const { authenticatedFetch, tokens } = useAuth();
-  const [name, setName] = useState();
+  const [name, setName] = useState('');
+  // const [isLoading, setIsLoading] = useState(true);
 
   const handleDelete = async (id) => {
     try {
@@ -19,9 +21,9 @@ const ListPlaylists = () => {
         }
       );
       const data = await response.json();
-      console.log(data);
+
       if (data.status === 'success') {
-        await handlePlaylists();
+        await onHandlePlaylists();
         // setName('');
       } else {
         alert('gagal delete playlist');
@@ -50,7 +52,7 @@ const ListPlaylists = () => {
       const data = await response.json();
       console.log(data);
       if (data.status === 'success') {
-        await handlePlaylists();
+        await onHandlePlaylists();
         setName('');
       } else {
         alert('gagal membuat playlist');
@@ -60,26 +62,63 @@ const ListPlaylists = () => {
     }
   };
 
-  const handlePlaylists = async () => {
-    try {
-      const response = await authenticatedFetch(
-        `${import.meta.env.VITE_BASEURL}/playlists`,
-        {
-          method: 'GET',
-        }
-      );
-      const data = await response.json();
-      const getPlaylists = data.data.playlists;
-      setPlaylists(getPlaylists);
-    } catch (error) {
-      console.log('Terjadi kesalahan pada playlists', error);
-    }
-  };
+  // const handlePlaylists = async () => {
+  //   try {
+  //     const response = await authenticatedFetch(
+  //       `${import.meta.env.VITE_BASEURL}/playlists`,
+  //       {
+  //         method: 'GET',
+  //       }
+  //     );
+  //     const data = await response.json();
+  //     const getPlaylists = data.data.playlists;
+  //     onHandlePlaylists(getPlaylists);
+  //     setIsLoading(false);
+  //   } catch (error) {
+  //     console.log('Terjadi kesalahan pada playlists', error);
+  //   }
+  // };
 
-  useEffect(() => {
-    handlePlaylists();
-    console.log('effect playlist');
-  }, []);
+  // useEffect(() => {
+  //   handlePlaylists();
+  //   console.log('effect playlist');
+  // }, []);
+
+  if (isLoading)
+    return (
+      <main className="main mt-3">
+        <div className="container text-center ">
+          {/* <!-- Songs List --> */}
+          <div className="row g-4">
+            <Loading />
+          </div>
+          {/* end list */}
+        </div>
+        <div className="container mt-5">
+          <div className="login-card mx-auto">
+            <form onSubmit={handleSubmit}>
+              <h4>Add Playlist</h4>
+              <div className="mb-4">
+                <div className="input-group">
+                  <span className="input-group-text border-0 bg-transparent">
+                    <i className="bi bi-file-earmark-music"></i>
+                  </span>
+                  <input
+                    id="playlist"
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter your playlist name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+    );
   return (
     <main className="main mt-3">
       <div className="container text-center ">

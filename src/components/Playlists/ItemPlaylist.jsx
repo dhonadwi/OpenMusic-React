@@ -17,9 +17,11 @@ const ItemPlaylist = ({ playlist, onHandleDelete }) => {
         </div>
         <div className="card-footer bg-transparent">
           <div className="d-flex justify-content-between align-items-center">
-            {/* <button className="btn btn-sm btn-outline-primary">
-              <i className="fas fa-play me-1"></i> Play
-            </button> */}
+            <Link to={`/playlist/${playlist.id}`}>
+              <button className="btn btn-sm btn-outline-primary">
+                <i className="fas fa-play me-1"></i> Detail
+              </button>
+            </Link>
             <button
               onClick={() => onHandleDelete(playlist.id)}
               className="btn btn-sm btn-outline-danger"

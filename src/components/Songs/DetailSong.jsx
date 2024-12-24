@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
-const DetailSong = () => {
+const DetailSong = ({ playlists }) => {
   const params = useParams();
-  // console.log('id', params);
   const [song, setSong] = useState([]);
   const [loading, setLoading] = useState(true);
-  // console.log(params.id);
+  const { authenticatedFetch } = useAuth();
+
   const handleSong = async () => {
     const data = await fetch(
       `${import.meta.env.VITE_BASEURL}/songs/${params.id}`
@@ -14,6 +15,31 @@ const DetailSong = () => {
     const dataJson = await data.json();
     setSong(dataJson.data.song);
     setLoading(false);
+  };
+
+  const handleButtonPlaylist = async (playlistId) => {
+    const dataBody = {
+      songId: song.id,
+    };
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataBody),
+    };
+    try {
+      const response = await authenticatedFetch(
+        `${import.meta.env.VITE_BASEURL}/playlists/${playlistId}/songs`,
+        options
+      );
+      const data = await response.json();
+      console.log(data.message);
+      // const dataUser = data.data.user;
+      // setUser(dataUser);
+    } catch (error) {
+      console.log('terjadi kesalahan saat mendapatkan data user', error);
+    }
   };
 
   useEffect(() => {
@@ -92,21 +118,59 @@ const DetailSong = () => {
 
               <div className="card-footer bg-white p-3">
                 <div className="d-flex justify-content-between align-items-center">
-                  <button className="btn btn-outline-primary">
+                  {/* <button className="btn btn-outline-primary">
                     <i className="fas fa-play me-2"></i>Play
-                  </button>
-                  <button className="btn btn-outline-danger">
-                    <Link to="/">
+                  </button> */}
+                  <Link to="/">
+                    <button className="btn btn-outline-danger">
                       <i className="fa fa-arrow-left"></i> Back
-                    </Link>
-                  </button>
+                    </button>
+                  </Link>
                   <div className="btn-group">
-                    <button className="btn btn-light">
-                      <i className="fas fa-share"></i>
-                    </button>
-                    <button className="btn btn-light">
-                      <i className="fas fa-heart"></i>
-                    </button>
+                    <div className="btn-group dropend">
+                      <button type="button" className="btn btn-primary">
+                        Add To
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-success dropdown-toggle dropdown-toggle-split"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        <span className="visually-hidden">Toggle Dropend</span>
+                      </button>
+                      <ul className="dropdown-menu">
+                        {playlists.map((playlist) => (
+                          <li key={playlist.id}>
+                            <button
+                              type="button"
+                              className="dropdown-item"
+                              onClick={() => handleButtonPlaylist(playlist.id)}
+                            >
+                              {playlist.name}
+                            </button>
+                          </li>
+                        ))}
+                        {/* <li>
+                          <a className="dropdown-item" href="#">
+                            Another action
+                          </a>
+                        </li>
+                        <li>
+                          <a className="dropdown-item" href="#">
+                            Something else here
+                          </a>
+                        </li>
+                        <li>
+                          <span className="dropdown-divider" />
+                        </li>
+                        <li>
+                          <a className="dropdown-item" href="#">
+                            Separated link
+                          </a>
+                        </li> */}
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
