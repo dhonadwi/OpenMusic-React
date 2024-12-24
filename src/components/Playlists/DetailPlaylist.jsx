@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import ItemSong from '../Songs/ItemSong';
 
 const DetailPlaylist = () => {
@@ -17,7 +16,7 @@ const DetailPlaylist = () => {
         `${import.meta.env.VITE_BASEURL}/playlists/${id}/songs`
       );
       const data = await response.json();
-      const getPlaylist = data.data;
+      const getPlaylist = data.data.playlist;
       const getSongs = data.data.playlist.songs;
       console.log(getPlaylist);
       setPlaylist(getPlaylist);
@@ -33,7 +32,7 @@ const DetailPlaylist = () => {
   return (
     <main className="main mt-5">
       <div className="container">
-        <h3>Detail Playlist</h3>
+        <h3>Detail Playlist {playlist.name}</h3>
         <div className="row g-4">
           {songs.map((song) => (
             <ItemSong song={song} key={song.id} />
