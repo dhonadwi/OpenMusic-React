@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-
+import Swal from 'sweetalert2';
 export default function ForgotPassword(props) {
   const [email, setEmail] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    {
+      props.onHide();
+    }
     const options = {
       email,
     };
@@ -19,6 +21,13 @@ export default function ForgotPassword(props) {
     });
     const result = await data.json();
     console.log(result.status);
+    Swal.fire({
+      title: 'Success',
+      text: 'Please check your email',
+      icon: 'success',
+      confirmButtonText: 'Ok',
+    });
+    setEmail('');
   };
   // const handleSubmit = (e) => {
   //   e.preventDefault();

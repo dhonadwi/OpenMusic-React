@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import ForgotPassword from './Users/ForgotPassword';
+import SignUp from './Users/SignUp';
 
 const LoginOpenMusic = () => {
   const { login, tokens } = useAuth();
@@ -12,6 +13,7 @@ const LoginOpenMusic = () => {
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [modalShow, setModalShow] = useState(false);
+  const [modalSignUpShow, setModalSignUpShow] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -132,7 +134,11 @@ const LoginOpenMusic = () => {
 
             <div className="text-center">
               <span className="text-muted">Don't have an account?</span>
-              <a href="#" className="text-decoration-none ms-1">
+              <a
+                href="#"
+                className="text-decoration-none ms-1"
+                onClick={() => setModalSignUpShow(true)}
+              >
                 Sign up
               </a>
             </div>
@@ -142,6 +148,10 @@ const LoginOpenMusic = () => {
           </Button> */}
 
           <ForgotPassword show={modalShow} onHide={() => setModalShow(false)} />
+          <SignUp
+            show={modalSignUpShow}
+            onHide={() => setModalSignUpShow(false)}
+          />
         </div>
       </div>
     </div>
