@@ -1,13 +1,15 @@
+import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import HeaderButton from './HeaderButton.jsx';
 import HeaderIcon from './HeaderIcon.jsx';
 
-const Header = ({ active, currentPath }) => {
+const Header = ({ active, currentPath, user }) => {
   const { logout } = useAuth();
+  // console.log('header', user);
   // console.log('active', active);
-  function handleLogout() {
-    alert('logout');
-  }
+  // function handleLogout() {
+  //   alert('logout');
+  // }
   return (
     <header id="header" className="header dark-background d-flex flex-column">
       <i className="header-toggle d-xl-none bi bi-list"></i>
@@ -20,13 +22,13 @@ const Header = ({ active, currentPath }) => {
         />
       </div>
 
-      <a
-        href="/"
+      <Link
+        to="/profile"
         className="logo d-flex align-items-center justify-content-center"
       >
         <img src="" alt="" />
-        <h1 className="sitename">Alex Smith</h1>
-      </a>
+        <h1 className="sitename">{user.fullname}</h1>
+      </Link>
 
       <div className="social-links text-center">
         <HeaderIcon

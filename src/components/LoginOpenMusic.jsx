@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import ForgotPassword from './Users/ForgotPassword';
 import SignUp from './Users/SignUp';
+import { Navigate } from 'react-router-dom';
 
 const LoginOpenMusic = () => {
   const { login, tokens } = useAuth();
